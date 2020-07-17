@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class HealthEndpointTest {
     
     private static String baseUrl;
@@ -29,7 +31,8 @@ public class HealthEndpointTest {
     }
     
     @BeforeEach
-    public void setup() {
+    public void setup() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(20);
         response = null;
         client = ClientBuilder.newClient();
         client.register(JsrJsonpProvider.class);

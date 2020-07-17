@@ -3,12 +3,10 @@
         <feature>microProfile-3.2</feature>
     </featureManager>
 
-    <httpEndpoint id="defaultHttpEndpoint"
-                  httpPort="9080"
-                  httpsPort="9443"/>
+    <httpEndpoint host="*" httpPort="${default.http.port}"
+                  httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
 
-
-    <webApplication location="${project.name}.war" contextRoot="/">
+    <webApplication location="starter-app.war" contextRoot="/">
         <classloader apiTypeVisibility="+third-party" />
     </webApplication>
     <mpMetrics authentication="false"/>

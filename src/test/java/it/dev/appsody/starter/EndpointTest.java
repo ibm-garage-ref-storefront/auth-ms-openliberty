@@ -13,10 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class EndpointTest {
     
     private static String baseUrl;
-    private static final String RESOURCE_ENDPOINT = "/resource";
+    private static final String RESOURCE_ENDPOINT = "/starter/resource";
     private Client client;
     private Response response;
     
@@ -27,7 +29,8 @@ public class EndpointTest {
     }
     
     @BeforeEach
-    public void setup() {
+    public void setup() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(20);
         response = null;
         client = ClientBuilder.newClient();
         client.register(JsrJsonpProvider.class);
