@@ -1,0 +1,8 @@
+dev/appsody/starter/resilient/ResilienceController.class
+dev/appsody/starter/metric/MetricController.class
+dev/appsody/starter/secure/TestSecureController.class
+dev/appsody/starter/health/StarterReadinessCheck.class
+dev/appsody/starter/secure/MPJWTToken.class
+dev/appsody/starter/StarterResource.class
+dev/appsody/starter/health/StarterLivenessCheck.class
+dev/appsody/starter/StarterApplication.class

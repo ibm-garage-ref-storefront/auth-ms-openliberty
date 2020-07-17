@@ -18,7 +18,11 @@
     <packaging>war</packaging>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.vertx</groupId>
+            <artifactId>vertx-auth-jwt</artifactId>
+            <version>3.8.1</version>
+        </dependency>
         <!-- Aggregate of MicroProfile APIs -->
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>

@@ -1,0 +1,8 @@
+/project/user-app/src/main/java/dev/appsody/starter/health/StarterReadinessCheck.java
+/project/user-app/src/main/java/dev/appsody/starter/StarterApplication.java
+/project/user-app/src/main/java/dev/appsody/starter/metric/MetricController.java
+/project/user-app/src/main/java/dev/appsody/starter/secure/MPJWTToken.java
+/project/user-app/src/main/java/dev/appsody/starter/resilient/ResilienceController.java
+/project/user-app/src/main/java/dev/appsody/starter/StarterResource.java
+/project/user-app/src/main/java/dev/appsody/starter/secure/TestSecureController.java
+/project/user-app/src/main/java/dev/appsody/starter/health/StarterLivenessCheck.java
