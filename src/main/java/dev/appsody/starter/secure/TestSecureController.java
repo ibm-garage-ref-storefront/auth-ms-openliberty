@@ -52,7 +52,7 @@ public class TestSecureController {
         //WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/micro/customer/search?username="+username);
         //WebTarget target = ClientBuilder.newClient().target("http://localhost:9081/data/protected");
 
-        WebTarget myResource = client.target("http://localhost:8080/micro/customer/search/");
+        WebTarget myResource = client.target("http://host.docker.internal:8080/micro/customer/search/");
         String user = myResource.request(MediaType.APPLICATION_JSON)
                 .post(Entity.json(username), String.class);
         System.out.println("ALPHA " + user);

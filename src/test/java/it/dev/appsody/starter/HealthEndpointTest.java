@@ -32,7 +32,7 @@ public class HealthEndpointTest {
     
     @BeforeEach
     public void setup() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(20);
+        TimeUnit.SECONDS.sleep(10);
         response = null;
         client = ClientBuilder.newClient();
         client.register(JsrJsonpProvider.class);
