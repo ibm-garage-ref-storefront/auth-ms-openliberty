@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: it.dev.appsody.starter.HealthEndpointTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.243 s - in it.dev.appsody.starter.HealthEndpointTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 20.085 s - in it.dev.appsody.starter.HealthEndpointTest

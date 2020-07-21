@@ -5,13 +5,19 @@ import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.jwt.JWTOptions;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -26,6 +32,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Path("/oauth")
+@Tag(name = "Auth microservice", description = "This is the auth microservice and is responsible for generating tokens")
 @ApplicationScoped
 public class TestSecureController {
 
@@ -38,30 +45,39 @@ public class TestSecureController {
 
     @POST
     @Path("/token")
-    public String testSecureCall() {
+    @Operation(description = "Given a username and password, validate the token to determine if it has access to retrieve " +
+            "customer. ")
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "Successful, returning the customer")
+    })
+
+    public String testSecureCall(String user, @QueryParam("username") String username, @QueryParam("password") String password) {
         Client client = ClientBuilder.newClient();
         if (key == null) {
             throw new WebApplicationException("Unable to read privateKey.pem", 500);
         }
         String jwt = generateJWT(key);
         // any method to send a REST request with an appropriate header will work of course.
-        String username = "WASABI";
         System.out.println("KEY " + jwt);
-        //WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/micro/customer/search/");
+        WebTarget target = ClientBuilder.newClient().target("http://localhost:9999/micro/customer/search?="+username);
 
         //WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/micro/customer/search?username="+username);
         //WebTarget target = ClientBuilder.newClient().target("http://localhost:9081/data/protected");
 
-        WebTarget myResource = client.target("http://host.docker.internal:8080/micro/customer/search/");
-        String user = myResource.request(MediaType.APPLICATION_JSON)
-                .post(Entity.json(username), String.class);
-        System.out.println("ALPHA " + user);
+        //WebTarget target = ClientBuilder.newClient().target("http://localhost:8080/micro/customer/search?"+username);
+        //WebTarget target = ClientBuilder.newClient().target("http://localhost:9081/data/protected");
+        Response response = target.request().header("authorization", "Bearer " + jwt).buildGet().invoke();
+        return String.format("Claim value within JWT of 'custom-value' : %s", response.readEntity(String.class));
+//        WebTarget myResource = ClientBuilder.newClient().target("http://host.docker.internal:9999/data/search/");
+//        String user = myResource.request(MediaType.APPLICATION_JSON)
+//                .post(Entity.json(username), String.class);
+//        System.out.println("ALPHA " + user);
 
         //System.out.println("TARGET  " + target.request());
 
         //Response response = target.request().header("username", "Bearer " + jwt).buildGet().invoke();
-        Response response = myResource.request().header("username", "Bearer " + jwt).buildGet().invoke();
-        return String.format("Claim value within JWT of 'custom-value' : %s", response.readEntity(String.class));
+       // Response response = myResource.request().header("custom-value", "Bearer " + jwt).buildGet().invoke();
+       // return String.format("Claim value within JWT of 'custom-value' : %s", response.readEntity(String.class));
     }
 
     private static String generateJWT(String key) {

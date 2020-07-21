@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class EndpointTest {
     
     private static String baseUrl;
-    private static final String RESOURCE_ENDPOINT = "/starter/resource";
+    private static final String RESOURCE_ENDPOINT = "/resource";
     private Client client;
     private Response response;
     
